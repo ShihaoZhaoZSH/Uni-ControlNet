@@ -12,10 +12,10 @@ Text-to-Image diffusion models have made tremendous progress over the past two y
 ## Overview
 
 ### Pipeline
-<img width="800" alt="image" src="./figs/pipeline.pdf">
+<img width="800" alt="image" src="./figs/pipeline.png">
 
 ### Details
-<img width="800" alt="image" src="./figs/details.pdf">
+<img width="800" alt="image" src="./figs/details.png">
 
 ## Results 
-<img width="800" alt="image" src="./figs/results.pdf">
+<img width="800" alt="image" src="./figs/results.png">
