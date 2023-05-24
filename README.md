@@ -1,5 +1,7 @@
 # Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
 
+### [Project Page](https://shihaozhaozsh.github.io/unicontrolnet/)
+
 
 <!-- ## Description -->
 
@@ -7,7 +9,7 @@ Text-to-Image diffusion models have made tremendous progress over the past two y
 
 
 ## Schedule
-- [ ] Release code and models
+- [ ] Release code and models (before May 30, 2023)
 
 ## Overview
 
