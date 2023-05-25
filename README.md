@@ -33,7 +33,7 @@ This command will load the downloaded pretrained weights and start the App. You 
 
 The results are shown at the bottom of the demo page, with generated images in the upper part and detected conditions in the lower part.
 
-<img width="800" alt="image" src="./figs/demo_resuls.png">
+<img width="800" alt="image" src="./figs/demo_results.png">
 
 You can further detail your configuration in the panel：
 
