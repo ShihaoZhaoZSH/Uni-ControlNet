@@ -3,18 +3,22 @@
 ### [Project Page](https://shihaozhaozsh.github.io/unicontrolnet/)
 <img width="800" alt="image" src="./figs/results.png">
 
-## To Do
+## ⏳ To Do
 - [ ] Huggingface demo
 - [ ] Release training code
 - [x] Release testing code
 - [x] Release pre-trained models
 
-## Method
+## 📚 Method
 <img width="800" alt="image" src="./figs/pipeline.png">
 
-Uni-ControlNet is a novel controllable diffusion model that allows for the simultaneous utilization of different local controls and global controls in a flexible and composable manner within one model. This is achieved through the incorporation of two adapters - local control adapter and global control adapter, regardless of the number of local or global controls used. These two adapters can be trained separately without the need for joint training, while still supporting the composition of multiple control signals.
+Uni-ControlNet is a novel controllable diffusion model that allows for the simultaneous utilization of different local controls and global controls in a flexible and composable manner within one model. This is achieved through the incorporation of two adapters - local control adapter and global control adapter, regardless of the number of local or global controls used. These two adapters can be trained separately without the need for joint training, while still supporting the composition of multiple control signals. 
 
-## Setup
+<img width="800" alt="image" src="./figs/comparison.png">
+
+Here are the comparisons of different controllable diffusion models. N is the number of conditions. Uni-ControlNet not only reduces the fine-tuning costs and model size as the number of the control conditions grows, but also facilitates composability of different conditions.
+
+## ⚙ Setup
 First create a new conda environment
 
     conda env create -f environment.yaml
@@ -22,16 +26,16 @@ First create a new conda environment
 
 Then download the [pretrained model](https://drive.google.com/file/d/1lagkiWUYFYbgeMTuJLxutpTW0HFuBchd/view?usp=sharing) and put it to `./ckpt/` folder. The model is built upon Stable Diffusion v1.5.
 
-## Test
+## ☕️ Test
 You can launch the gradio demo by:
 
     python src/test/test.py
     
-This command will load the downloaded pretrained weights and start the App. You can load source images for each conditions:
+This command will load the downloaded pretrained weights and start the App. We include seven local conditions: Canny edge, MLSD edge, HED boundary, sketch, Openpose, Midas depth, segmentation mask, and one global condition: content. And you can upload source images for each conditions:
 
 <img width="800" alt="image" src="./figs/demo_conditions.png">
 
-The results are shown at the bottom of the demo page, with generated images in the upper part and detected conditions in the lower part.
+The results are shown at the bottom of the demo page, with generated images in the upper part and detected conditions in the lower part:
 
 <img width="800" alt="image" src="./figs/demo_results.png">
 
@@ -39,10 +43,18 @@ You can further detail your configuration in the panel：
 
 <img width="800" alt="image" src="./figs/demo_panel.png">
 
-## Training
+Uni-ControlNet also handles multi-conditions setting well. Here is an example of the combination of two local conditions:
+
+<img width="800" alt="image" src="./figs/demo_results2.png">
+
+With Uni-ControlNet, you can go even further and incorporate more conditions such as the local conditions of a deer, a sofa, a forest, and the global condition of snow to generate images that are unlikely to occur naturally.
+
+<img width="800" alt="image" src="./figs/demo_results3.png">
+
+## 💻 Training
 
 Coming soon!
 
-## Acknowledgments:
+## 🎉 Acknowledgments:
 
 This repo is built upon [ControlNet](https://github.com/lllyasviel/ControlNet/tree/main) and really thank to their great work!
