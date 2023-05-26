@@ -1,16 +1,16 @@
 ## Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
 
-### [Project Page](https://shihaozhaozsh.github.io/unicontrolnet/)
+### [Project Page](https://shihaozhaozsh.github.io/unicontrolnet/) | [Paper (ArXiv)](https://arxiv.org/abs/2305.16322) 
 <img width="800" alt="image" src="./figs/results.png">
 
 
-## ⏳ To Do
+## ⏳ : To Do
 - [ ] Huggingface demo
 - [ ] Release training code
 - [x] Release test code
 - [x] Release pre-trained models
 
-## 💡 Method
+## 💡 : Method
 <div align="center">
 <img width="800" alt="image" src="./figs/pipeline.png">
 </div>
@@ -23,7 +23,7 @@ Uni-ControlNet is a novel controllable diffusion model that allows for the simul
 
 Here are the comparisons of different controllable diffusion models. N is the number of conditions. Uni-ControlNet not only reduces the fine-tuning costs and model size as the number of the control conditions grows, but also facilitates composability of different conditions.
 
-## ⚙ Setup
+## ⚙ : Setup
 First create a new conda environment
 
     conda env create -f environment.yaml
@@ -31,7 +31,7 @@ First create a new conda environment
 
 Then download the [pretrained model](https://drive.google.com/file/d/1lagkiWUYFYbgeMTuJLxutpTW0HFuBchd/view?usp=sharing) and put it to `./ckpt/` folder. The model is built upon Stable Diffusion v1.5.
 
-## 💻 Test
+## 💻 : Test
 You can launch the gradio demo by:
 
     python src/test/test.py
@@ -66,10 +66,21 @@ With Uni-ControlNet, you can go even further and incorporate more conditions. Fo
 <img width="800" alt="image" src="./figs/demo_results3.png">
 </div>
 
-## ☕️ Training
+## ☕️ : Training
 
 Coming soon!
 
-## 🎉 Acknowledgments:
+## 🎉 : Acknowledgments:
 
 This repo is built upon [ControlNet](https://github.com/lllyasviel/ControlNet/tree/main) and really thank to their great work!
+
+## 📖 : Citation
+
+```bibtex
+@article{zhao2023unicontrolnet,
+  title={Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models},
+  author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and K. Wong, Kwan-Yee},
+  journal={arXiv preprint arXiv:2305.16322},
+  year={2023}
+}
+```
