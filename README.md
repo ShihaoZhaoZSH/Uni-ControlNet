@@ -29,7 +29,7 @@ First create a new conda environment
     conda env create -f environment.yaml
     conda activate unicontrol
 
-Then download the [pretrained model](https://drive.google.com/file/d/1lagkiWUYFYbgeMTuJLxutpTW0HFuBchd/view?usp=sharing) and put it to `./ckpt/` folder. The model is built upon Stable Diffusion v1.5.
+Then download the [pretrained model](https://drive.google.com/file/d/1lagkiWUYFYbgeMTuJLxutpTW0HFuBchd/view?usp=sharing) ([or here](https://huggingface.co/shihaozhao/uni-controlnet/blob/main/uni.ckpt)) and put it to `./ckpt/` folder. The model is built upon Stable Diffusion v1.5.
 
 ## 💻 : Test
 You can launch the gradio demo by:
