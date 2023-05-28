@@ -5,7 +5,7 @@
 
 
 ## ⏳ : To Do
-- [ ] Huggingface demo
+- [ ] Hugging Face demo
 - [ ] Release training code
 - [x] Release test code
 - [x] Release pre-trained models
