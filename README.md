@@ -77,9 +77,9 @@ This repo is built upon [ControlNet](https://github.com/lllyasviel/ControlNet/tr
 ## 📖 : Citation
 
 ```bibtex
-@article{zhao2023unicontrolnet,
+@article{zhao2023uni,
   title={Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models},
-  author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and K. Wong, Kwan-Yee},
+  author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and Wong, Kwan-Yee K},
   journal={arXiv preprint arXiv:2305.16322},
   year={2023}
 }
