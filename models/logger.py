@@ -31,6 +31,9 @@ class ImageLogger(Callback):
         root = os.path.join(save_dir, "image_log", split)
         for k in images:
             if k == 'local_control':
+                _, _, h, w = images[k].shape
+                if h == w == 1:
+                    continue
                 for local_idx in range(self.num_local_conditions):
                     grid = torchvision.utils.make_grid(images[k][:, 3*local_idx: 3*(local_idx+1), :, : ], nrow=4)
                     if self.rescale:

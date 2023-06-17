@@ -22,10 +22,10 @@ class UniControlNet(LatentDiffusion):
             self.global_adapter = instantiate_from_config(global_control_config)
 
     @torch.no_grad()
-    def get_input(self, batch, bs=None, *args, **kwargs):
+    def get_input(self, batch, k, bs=None, *args, **kwargs):
         x, c = super().get_input(batch, self.first_stage_key, *args, **kwargs)
         
-        if 'local_conditions' in batch.keys():
+        if len(batch['local_conditions']) != 0:
             local_conditions = batch['local_conditions']
             if bs is not None:
                 local_conditions = local_conditions[:bs]
@@ -33,14 +33,14 @@ class UniControlNet(LatentDiffusion):
             local_conditions = einops.rearrange(local_conditions, 'b h w c -> b c h w')
             local_conditions = local_conditions.to(memory_format=torch.contiguous_format).float()
         else:
-            local_conditions = None
-        if 'global_conditions' in batch.keys():
+            local_conditions = torch.zeros(1,1,1,1).to(self.device).to(memory_format=torch.contiguous_format).float()
+        if len(batch['global_conditions']) != 0:
             global_conditions = batch['global_conditions']
             if bs is not None:
                 global_conditions = global_conditions[:bs]
             global_conditions = global_conditions.to(self.device).to(memory_format=torch.contiguous_format).float()
         else:
-            global_conditions = None
+            global_conditions = torch.zeros(1,1).to(self.device).to(memory_format=torch.contiguous_format).float()
 
         return x, dict(c_crossattn=[c], local_control=[local_conditions], global_control=[global_conditions])
 
@@ -58,8 +58,11 @@ class UniControlNet(LatentDiffusion):
             local_control = torch.cat(cond['local_control'], 1)
             local_control = self.local_adapter(x=x_noisy, timesteps=t, context=cond_txt, local_conditions=local_control)
             local_control = [c * scale for c, scale in zip(local_control, self.local_control_scales)]
-            
-        eps = diffusion_model(x=x_noisy, timesteps=t, context=cond_txt, local_control=local_control)
+        
+        if self.mode == 'global':
+            eps = diffusion_model(x=x_noisy, timesteps=t, context=cond_txt)
+        else:
+            eps = diffusion_model(x=x_noisy, timesteps=t, context=cond_txt, local_control=local_control)
         return eps
 
     @torch.no_grad()
@@ -74,7 +77,10 @@ class UniControlNet(LatentDiffusion):
         log = dict()
         z, c = self.get_input(batch, self.first_stage_key, bs=N)
 
-        c_cat, c_global, c = c["local_control"][0][:N], c["global_control"][0][:N], c["c_crossattn"][0][:N]
+        c_cat = c["local_control"][0][:N]
+        c_global = c["global_control"][0][:N]
+        c = c["c_crossattn"][0][:N]
+        
         N = min(z.shape[0], N)
         n_row = min(z.shape[0], n_row)
         log["reconstruction"] = self.decode_first_stage(z)
@@ -127,7 +133,10 @@ class UniControlNet(LatentDiffusion):
     @torch.no_grad()
     def sample_log(self, cond, batch_size, ddim, ddim_steps, **kwargs):
         ddim_sampler = DDIMSampler(self)
-        _, _, h, w = cond["local_control"][0].shape
+        if self.mode == 'global':
+            h, w = 512, 512
+        else:
+            _, _, h, w = cond["local_control"][0].shape
         shape = (self.channels, h // 8, w // 8)
         samples, intermediates = ddim_sampler.sample(ddim_steps, batch_size, shape, cond, verbose=False, **kwargs)
         return samples, intermediates
