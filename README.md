@@ -5,8 +5,7 @@
 
 
 ## ⏳ : To Do
-- [ ] Hugging Face demo
-- [ ] Release training code
+- [x] Release training code
 - [x] Release test code
 - [x] Release pre-trained models
 
@@ -68,7 +67,40 @@ With Uni-ControlNet, you can go even further and incorporate more conditions. Fo
 
 ## ☕️ : Training
 
-Coming soon!
+You should first download the pretrained weights of [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5/blob/main/v1-5-pruned.ckpt) and put it to `./ckpt/` folder. Then, you can get the initial weights for training by:
+
+    python utils/prepare_weights.py init_local ckpt/v1-5-pruned.ckpt configs/local_v15.yaml ckpt/init_local.ckpt
+    
+    python utils/prepare_weights.py init_global ckpt/v1-5-pruned.ckpt configs/global_v15.yaml ckpt/init_global.ckpt
+
+The 4 arguments are mode, pretrained SD weights, model configs and output path for the initial weights.
+
+To prepare the training data, please ensure that they are placed in the `./data/` folder and organized in the following manner:
+
+```
+data/
+├── anno.txt
+├── images/
+├── conditions/
+    ├── condition-1/
+    ├── condition-2/
+    ...
+...
+```
+
+Specifically, you can utilize the condition detectors in `./annotator/` to extract the conditions. Then, you have to put the original images into `./data/images/` folder and the extracted conditions into `./data/conditions/condition-N/` folder. And `./data/anno.txt` is the annotation file, where each line represents a training sample and is divided into two parts: 1) file ID and 2) annotation. Please ensure the consistency between the file IDs in `./data/anno.txt`， `./data/images/` and `./data/conditions/condition-N/` directories.
+
+Now, you can train with you own data simply by:
+
+    python src/train/train.py
+
+Kindly note that the local adapter and global adapter must be trained separately. Additionally, you can customize the training configurations in `./src/train/train.py` and `./configs/`. 
+
+Once you have completed separate training, you will need to integrate the two adapters by:
+
+    python utils/prepare_weights.py integrate path1 path2 configs/uni_v15.yaml path3
+
+Path1 and path2 refer to the trained weights of SD with local and global adapters, respectively, while path3 denotes the output path for Uni-ControlNet.
 
 ## 🎉 : Acknowledgments:
 
