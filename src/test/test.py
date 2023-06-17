@@ -176,7 +176,7 @@ with block:
             with gr.Accordion("Advanced options", open=False):
                 num_samples = gr.Slider(label="Images", minimum=1, maximum=12, value=4, step=1)
                 image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512, step=64)
-                strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=0.75, step=0.01)
+                strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1, step=0.01)
 
                 global_strength = gr.Slider(label="Global Strength", minimum=0, maximum=2, value=1, step=0.01)
                 
