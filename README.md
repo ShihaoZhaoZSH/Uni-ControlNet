@@ -1,4 +1,4 @@
-# Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
+# [NeurIPS 2023] Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
 
 Official implementation of Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models, which is accepted by NeurIPS 2023.
 
