@@ -1,4 +1,6 @@
-## Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
+# Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models
+
+Official implementation of Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models, which is accepted by NeurIPS 2023.
 
 ### [Project Page](https://shihaozhaozsh.github.io/unicontrolnet/) | [Paper (ArXiv)](https://arxiv.org/abs/2305.16322) 
 <img width="800" alt="image" src="./figs/results.png">
@@ -112,7 +114,7 @@ This repo is built upon [ControlNet](https://github.com/lllyasviel/ControlNet/tr
 @article{zhao2023uni,
   title={Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models},
   author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and Wong, Kwan-Yee K},
-  journal={arXiv preprint arXiv:2305.16322},
+  booktitle={NeurIPS},
   year={2023}
 }
 ```
