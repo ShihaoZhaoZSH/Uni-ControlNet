@@ -114,7 +114,7 @@ This repo is built upon [ControlNet](https://github.com/lllyasviel/ControlNet/tr
 @article{zhao2023uni,
   title={Uni-ControlNet: All-in-One Control to Text-to-Image Diffusion Models},
   author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and Wong, Kwan-Yee K},
-  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  journal={Advances in Neural Information Processing Systems},
   year={2023}
 }
 ```
