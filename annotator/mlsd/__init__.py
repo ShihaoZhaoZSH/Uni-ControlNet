@@ -10,6 +10,7 @@ from .utils import pred_lines
 
 from annotator.util import annotator_ckpts_path
 
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
 remote_model_path = "https://huggingface.co/lllyasviel/ControlNet/resolve/main/annotator/ckpts/mlsd_large_512_fp32.pth"
 
@@ -22,7 +23,7 @@ class MLSDdetector:
             load_file_from_url(remote_model_path, model_dir=annotator_ckpts_path)
         model = MobileV2_MLSD_Large()
         model.load_state_dict(torch.load(model_path), strict=True)
-        self.model = model.cuda().eval()
+        self.model = model.to(device).eval()
 
     def __call__(self, input_image, thr_v, thr_d):
         assert input_image.ndim == 3
