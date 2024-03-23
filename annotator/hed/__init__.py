@@ -5,6 +5,7 @@ import torch
 from einops import rearrange
 from annotator.util import annotator_ckpts_path
 
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
 class Network(torch.nn.Module):
     def __init__(self, model_path):
@@ -100,13 +101,13 @@ class HEDdetector:
         if not os.path.exists(modelpath):
             from basicsr.utils.download_util import load_file_from_url
             load_file_from_url(remote_model_path, model_dir=annotator_ckpts_path)
-        self.netNetwork = Network(modelpath).cuda().eval()
+        self.netNetwork = Network(modelpath).to(device).eval()
 
     def __call__(self, input_image):
         assert input_image.ndim == 3
         input_image = input_image[:, :, ::-1].copy()
         with torch.no_grad():
-            image_hed = torch.from_numpy(input_image).float().cuda()
+            image_hed = torch.from_numpy(input_image).float().to(device)
             image_hed = image_hed / 255.0
             image_hed = rearrange(image_hed, 'h w c -> 1 c h w')
             edge = self.netNetwork(image_hed)[0]

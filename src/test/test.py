@@ -25,6 +25,7 @@ from annotator.content import ContentDetector
 from models.util import create_model, load_state_dict
 from models.ddim_hacked import DDIMSampler
 
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
 apply_canny = CannyDetector()
 apply_mlsd = MLSDdetector()
@@ -37,8 +38,8 @@ apply_content = ContentDetector()
 
 
 model = create_model('./configs/uni_v15.yaml').cpu()
-model.load_state_dict(load_state_dict('./ckpt/uni.ckpt', location='cuda'))
-model = model.cuda()
+model.load_state_dict(load_state_dict('./ckpt/uni.ckpt', location=device))
+model = model.to(device)
 ddim_sampler = DDIMSampler(model)
 
 
@@ -119,10 +120,10 @@ def process(canny_image, mlsd_image, hed_image, sketch_image, openpose_image, mi
                               ]
         detected_maps = np.concatenate(detected_maps_list, axis=2)
 
-        local_control = torch.from_numpy(detected_maps.copy()).float().cuda() / 255.0
+        local_control = torch.from_numpy(detected_maps.copy()).float().to(device) / 255.0
         local_control = torch.stack([local_control for _ in range(num_samples)], dim=0)
         local_control = einops.rearrange(local_control, 'b h w c -> b c h w').clone()
-        global_control = torch.from_numpy(content_emb.copy()).float().cuda().clone()
+        global_control = torch.from_numpy(content_emb.copy()).float().to(device).clone()
         global_control = torch.stack([global_control for _ in range(num_samples)], dim=0)
 
         if config.save_memory:
