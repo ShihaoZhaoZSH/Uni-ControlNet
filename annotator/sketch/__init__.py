@@ -10,6 +10,7 @@ from .model import module
 from annotator.hed import HEDdetector
 from annotator.util import annotator_ckpts_path
 
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
 remote_model_path = "https://github.com/aidreamwin/sketch_simplification_pytorch/releases/download/model/model_gan.pth"
 
@@ -37,9 +38,9 @@ class SketchDetector:
         data = ((transforms.ToTensor()(img) - self.immean) / self.imstd).unsqueeze(0)
         if pw != 0 or ph != 0:
             data = torch.nn.ReplicationPad2d((0, pw, 0, ph))(data).data
-        data = data.float().cuda()
+        data = data.float().to(device)
         with torch.no_grad():
-            pred = self.model.cuda().forward(data).float()[0][0]
+            pred = self.model.to(device).forward(data).float()[0][0]
             pred = pred.detach().cpu().numpy()
             pred = cv2.resize(pred, (w, h))*255
             pred = pred.astype(np.uint8)
